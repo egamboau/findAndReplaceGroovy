@@ -16,7 +16,7 @@ The script was created on MacOS 10.11 El Capitan, with groovy version 2.4.5 and 
 To execute the script, the following format should be used:
 
 `findAndReplace.groovy <directoryToSearch> <patternToSearch> <textToWrite> [logFilePath]` on which
-- directoryToSearch: is the path on which the text files are. The script only accepts files ending on .txt. The directory is iterated on a recursive way, so files on subdirectories will be include on the search too
-- patternToSearch: is the pattern that the script will try to find on the files on the directory and subdirectories.
+- directoryToSearch: is the path on which the text files are. The script only accepts files ending on .txt. The directory is iterated on a recursive way, so files on sub directories will be include on the search too
+- patternToSearch: is the pattern that the script will try to find on the files on the directory and sub directories.
 - textToWrite: the text that will be written when the script finds any match
 - logFilePath: Optional pattern, represents a file where the script will log all the modified files.

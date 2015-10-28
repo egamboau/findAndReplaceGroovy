@@ -3,12 +3,12 @@ Search and replace implementation using a groovy script.
 
 #To Execute it
 ##Linux/Unix enviroments
-To run on linux and any unix-like enviroments, two options are available
+To run on linux and any unix-like environments, two options are available
 
 1. Using bash, give execution permission to the file with `chmod +x findAndReplace.groovy`, and then execute it with `./findAndReplace.groovy`
 1. Use the `groovy` command to execute the script directly with `groovy findAndReplace`
 
-The script was not tested on Windows enviroments, however it should run with the `groovy` command
+The script was not tested on Windows environments, however it should run with the `groovy` command
 ##Enviroments
 The script was created on MacOS 10.11 El Capitan, with groovy version 2.4.5 and Java SDK version 1.0.7_79, from Oracle
 

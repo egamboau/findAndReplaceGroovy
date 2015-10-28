@@ -10,7 +10,7 @@ To run on linux and any unix-like environments, two options are available
 
 The script was not tested on Windows environments, however it should run with the `groovy` command
 ##Enviroments
-The script was created on MacOS 10.11 El Capitan, with groovy version 2.4.5 and Java SDK version 1.0.7_79, from Oracle
+The script was created on MacOS 10.11 El Capitan, with groovy version 2.4.5 and JDK version 1.0.7_79, from Oracle
 
 #Syntax
 To execute the script, the following format should be used:

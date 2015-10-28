@@ -2,9 +2,10 @@
 
 import groovy.io.FileType
 
-//import the grape for Sl4J so we can use logs on the script. The grape will be downloaded before execution
+//import the grape for Sl4J so we can use logs on the script.
 import groovy.util.logging.Slf4j
 
+//we download a dependency for the script, so it will load well-formnatted logs for us
 @Grapes([
     @Grab(group='ch.qos.logback', module='logback-classic', version='1.0.13') 
     ])

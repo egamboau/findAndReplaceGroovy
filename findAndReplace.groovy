@@ -11,7 +11,7 @@ import groovy.util.logging.Slf4j
     ])
 
 @Slf4j
-class FindAndRepolace {
+class FindAndReplace {
 
     //the script arguments
     def argsuments
@@ -24,7 +24,7 @@ class FindAndRepolace {
     //optional parameters
     def logFilePath
 
-    FindAndRepolace(args) {
+    FindAndReplace(args) {
         argsuments = args
     }
 
@@ -114,7 +114,7 @@ class FindAndRepolace {
                             def replacedLine = line.replaceAll(patternToSearch) {
                                 // if we got a match, this means that the file is modified, we need to log it
                                 modifiedFiles << originalFileName
-                                log.info "pattern found on position ${line.indexOf(patternToSearch)}"
+                                log.info "replacing pattern on line ${count}"
                                 textToReplace
                             }
                             bufferWriter << replacedLine + System.getProperty("line.separator")
@@ -144,5 +144,5 @@ class FindAndRepolace {
 }
 
 
-def findAndReplace = new FindAndRepolace(args)
+def findAndReplace = new FindAndReplace(args)
 findAndReplace.execute()

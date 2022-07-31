@@ -1,65 +1,59 @@
 #! /usr/bin/env groovy
 
 import groovy.io.FileType
+import groovy.util.logging.Log
 
-//import the grape for Sl4J so we can use logs on the script.
-import groovy.util.logging.Slf4j
 
-//we download a dependency for the script, so it will load well-formnatted logs for us
-@Grapes([
-    @Grab(group='ch.qos.logback', module='logback-classic', version='1.0.13') 
-    ])
-
-@Slf4j
+@Log
 class FindAndReplace {
 
     //the script arguments
-    def argsuments
+    String[] arguments
 
     //variables to hold the required parameters, to make the code easier to read
-    def directoryPath
-    def patternToSearch
-    def textToReplace
+    File directoryPath
+    String patternToSearch
+    String textToReplace
 
     //optional parameters
     def logFilePath
 
-    FindAndReplace(args) {
-        argsuments = args
+    FindAndReplace(String[] args) {
+        arguments = args
     }
 
     /**
-    * Function that will pring the script usage on screen, in case of that the script is missused
+    * Function that will print the script usage on screen, in case of that the script is misused
     */
     def printHelp() {
-        //we get the path and name of the current script dynamicall, and then use it to print the errory
-        def scriptFile = getClass().protectionDomain.codeSource.location.path
-        log.error "Usage: ${scriptFile} <directory to search> <pattern to search> <text to replace> [path for log]"
+        //we get the path and name of the current script dynamically, and then use it to print the error
+        String scriptFile = getClass().protectionDomain.codeSource.location.path
+        log.info("Usage: ${scriptFile} <directory to search> <pattern to search> <text to replace> [path for log]")
         System.exit(1)
     }
 
     /**
-     * Ffunction taht will validate the paramters provided to the scropt.
+     * Function that will validate the parameters provided to the script.
      * If any parameter is invalid, then we print the corresponded error
      */
-     def validateParamters() {
+     def validateParameters() {
         //first, we need a path to scan for files. We check for the parameter, and if the provided directory exists
-        if(argsuments.size() == 0)  {
+        if(arguments.size() == 0)  {
             // no parameters provided Print the usage help
             printHelp()
             } else {
-                def allParametersDefined = false
-                //we have some paramters, so we can iterate over them, based on the index, and 
-                argsuments.eachWithIndex { argument, index ->
+                boolean allParametersDefined = false
+                //we have some parameters, so we can iterate over them, based on the index, and
+                arguments.eachWithIndex { argument, index ->
                     switch(index) {
                         case 0:
                             //this is the path for files
                             directoryPath = new File(argument)
                             if(!directoryPath.exists()) {
-                                log.error "The directory at ${argument} does not exists";
+                                log.info "The directory at ${argument} does not exists"
                                 System.exit(2)
                             } else if (!directoryPath.isDirectory()) {
-                                log.error "The path ${argsuments[index]} is not a directory";
+                                log.info "The path ${arguments[index]} is not a directory"
                                 System.exit(3)
                             }
                             break
@@ -78,8 +72,8 @@ class FindAndReplace {
                             logFilePath = new File(argument)
                             break
                         default:
-                            //if we reach here, it means that we have extra paratmeters, print the help
-                            printHelp
+                            //if we reach here, it means that we have extra parameters, print the help
+                            printHelp()
                         }
                     }
                     if(!allParametersDefined) {
@@ -91,8 +85,8 @@ class FindAndReplace {
 
     /**
      * Function that will search for the files on the current path, search for the given pattern, and
-     * replace it with the current text. All of the current paramteres are read from the global variables,
-     * previously validaded
+     * replace it with the current text. All of the current parameters are read from the global variables,
+     * previously validated
      */
      def scanDirectoryForTextReplacements() {
         def modifiedFiles = new HashSet()
@@ -108,8 +102,8 @@ class FindAndReplace {
                 //for performance, create a BufferedWriter, to prevent a lot of I/O operations
                 new File(originalFileName).withWriter { bufferWriter ->
                     //also, for the replacement, we choose the buffered Reader approach, for performance reasons
-                    new File(backupFileName).withReader { buferedReader ->
-                        buferedReader.eachLine { line, count -> 
+                    new File(backupFileName).withReader { bufferedReader ->
+                        bufferedReader.eachLine { line, count ->
                             log.info "Searching on line ${count}"
                             def replacedLine = line.replaceAll(patternToSearch) {
                                 // if we got a match, this means that the file is modified, we need to log it
@@ -136,7 +130,7 @@ class FindAndReplace {
     def execute() {
         log.info "Starting script"
         //first, we validate the parameters for the current execution
-        validateParamters()
+        validateParameters()
         //then, we just run the directory scan
         scanDirectoryForTextReplacements()
         log.info "Script Finished"

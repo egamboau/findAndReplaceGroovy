@@ -11,9 +11,9 @@ To run on linux and any unix-like environments, two options are available
 The script was not tested on Windows environments, however it should run with the `groovy` command
 
 ## Environments
-The script was created on MacOS 10.11 El Capitan, with groovy version 4.0.4 and JDK Eclipse Temurin version 11.0.16.
+The script was created inside a WSL environment on Windows 11, with groovy version 4.0.4 and JDK Eclipse Temurin version 11.0.16.
 
-#Syntax
+# Syntax
 To execute the script, the following format should be used:
 
 `findAndReplace.groovy <directoryToSearch> <patternToSearch> <textToWrite> [logFilePath]` on which
